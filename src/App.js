@@ -1,41 +1,39 @@
-import React, { Component } from 'react'
-import { ToastContainer } from 'react-toastify'
-import ApiInfo from './Components/ApiInfo'
+import React, { Component } from "react";
 
-// import { v4 as uuid } from 'uuid'
-import Button from './Components/Button'
-import ImageGallery from './Components/ImageGallery'
-
-import Loader from './Components/Loader'
-import Modal from './Components/Modal'
-import Searchbar from './Components/Searchbar'
+import ImageGallery from "./Components/ImageGallery/ImageGallery";
+// import ImageGalleryItem from "./Components/ImageGalleryItem/ImageGalleryItem";
+// import Loader from "./Components/Loader/Loader";
+// import Button from "./Components/Button/Button";
+import Modal from "./Components/Modal/Modal";
+// import { v4 as uuid } from "uuid";
 
 export default class App extends Component {
-  state = { galery: null, q: '', page: 1, inputValue: '' }
-  // const BASE_URL =`https://pixabay.com/api/?q=${input}&page=1&key=18864788-659534fccb4bfac7e1ae65a8e&image_type=photo&orientation=horizontal&per_page=12`
-  // componentDidMount() {
-  //   const galery = fetch(
-  //     'https://pixabay.com/api/?q=${input}&page=1&key=18864788-659534fccb4bfac7e1ae65a8e&image_type=photo&orientation=horizontal&per_page=12',
-  //   )
-  //     .then((res) => res.json())
-  //     .then(console.log)
-  // }
-  onHandleSubmit = (inputValue) => {
-    this.setState({ inputValue })
-    console.log(inputValue)
-  }
+  state = {
+    showModal: false,
+  };
+
+  toggleModal = () => {
+    this.setState((state) => ({ showModal: !this.state.showModal }));
+  };
+
   render() {
+    const { showModal } = this.state;
     return (
       <>
-        <Searchbar onSubmit={this.onHandleSubmit} />
-        <ApiInfo inputValue={this.state.inputValue} />
-        <ImageGallery image={this.state.galery} />
+        <ImageGallery />
 
-        <Loader />
-        <Button />
-        <Modal />
-        <ToastContainer autoClose={3000} />
+        <div>
+          {showModal && (
+            <Modal onClose={this.toggleModal}>
+              <h2>modal title</h2>
+
+              <button type="button" onClick={this.toggleModal}>
+                close modal
+              </button>
+            </Modal>
+          )}
+        </div>
       </>
-    )
+    );
   }
 }
