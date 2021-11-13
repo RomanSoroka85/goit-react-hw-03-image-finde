@@ -80,7 +80,7 @@ export default class ImageGallery extends Component {
               <ul className={s.imageGalleryItemImage}>
                 {this.state.articles.map((articles) => (
                   <li className={s.imageGalleryItem} key={articles.id}>
-                   
+                
                     <img
                       src={articles.previewURL}
                       alt={articles.title}
@@ -89,9 +89,8 @@ export default class ImageGallery extends Component {
                       className={s.imageGalleryItemImage}
                       data-largeimage={articles.largeImageURL}
                       onClick={this.openModal}
-                      >
-                      {articles.title}
-                    </img>
+                      />
+                    
                   </li>
                 ))}
               </ul>
