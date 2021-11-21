@@ -44,7 +44,7 @@ export default class ImageGallery extends Component {
   };
 scroll = () => {
     window.scrollTo({
-      top: document.body.scrollHeight,
+      top: document.body.scrollHeight-800,
       behavior: "smooth",
     });
    }
@@ -59,7 +59,7 @@ scroll = () => {
       }))
 setTimeout(() => {
       this.scroll()
-    }, 600);
+    }, 400);
     })
     .catch((error) => this.setState({ error })) 
     .finally(() => this.setState({ loading: false })); 

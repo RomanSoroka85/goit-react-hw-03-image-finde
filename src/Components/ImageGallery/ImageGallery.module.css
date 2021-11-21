@@ -29,7 +29,7 @@
   }
   
   .imageGalleryItemImage:hover {
-    transform: scale(1.03);
+    transform: scale(1.01);
     cursor: zoom-in;
   }
   .Button {
