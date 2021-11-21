@@ -16,6 +16,7 @@ export default class ImageGallery extends Component {
     page: 0,
     isOpenModal: false,
     src: "",
+    //  offset: 0,
   };
 
   componentDidMount() {
@@ -31,27 +32,39 @@ export default class ImageGallery extends Component {
       .fatchArticlesWithQuery(searchQuery, page)
       .then((articles) =>
         this.setState((prevState) => ({
+         
           articles,
           page: prevState.page + 1,
           searchQuery,
+         
         }))
       )
       .catch((error) => this.setState({ error }))
       .finally(() => this.setState({ loading: false }));
   };
-
-  loadMore = () => {
-    articlesApi
-      .fatchArticlesWithQuery(this.state.searchQuery, this.state.page)
-      .then((articles) =>
-        this.setState((prevState) => ({
-          articles: [...prevState.articles, ...articles],
-          page: prevState.page + 1,
-        }))
-      )
-      .catch((error) => this.setState({ error }))
-      .finally(() => this.setState({ loading: false }));
-  };
+scroll = () => {
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: "smooth",
+    });
+   }
+  
+ loadMore = () => { 
+  articlesApi 
+    .fatchArticlesWithQuery(this.state.searchQuery, this.state.page) 
+    .then((articles) => {
+      this.setState((prevState) => ({ 
+        articles: [...prevState.articles, ...articles], 
+        page: prevState.page + 1, 
+      }))
+setTimeout(() => {
+      this.scroll()
+    }, 600);
+    })
+    .catch((error) => this.setState({ error })) 
+    .finally(() => this.setState({ loading: false })); 
+};
+     
 
   openModal = (e) => {
     console.log(e.target.dataset.largeimage);
