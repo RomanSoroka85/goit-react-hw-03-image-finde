@@ -3,6 +3,8 @@ import Loader from "../Loader/Loader.js";
 import Modal from "../Modal/Modal.js";
 import Searchbar from "../Searchbar/Searchbar";
 import articlesApi from "../../services/articlesApi.js";
+import { animateScroll as scroll } from "react-scroll";
+
 
 // import axios from "axios";
 import s from "./ImageGallery.module.css";
@@ -15,6 +17,7 @@ export default class ImageGallery extends Component {
     searchQuery: "",
     page: 0,
     isOpenModal: false,
+    showLoader: false,
     src: "",
     //  offset: 0,
   };
@@ -24,7 +27,9 @@ export default class ImageGallery extends Component {
     console.log('this.state :>> ', this.state);
     this.fetchArticles("");
   }
-
+loaderToggle = (bool) => {
+    return this.setState(({ showLoader }) => ({ showLoader: bool }));
+  };
   fetchArticles = (searchQuery, page) => {
     console.log('searchQuery :>> ', searchQuery);
     // const {searchQuery, page} =this.state
@@ -42,12 +47,16 @@ export default class ImageGallery extends Component {
       .catch((error) => this.setState({ error }))
       .finally(() => this.setState({ loading: false }));
   };
-scroll = () => {
-    window.scrollTo({
-      top: document.body.scrollHeight-800,
-      behavior: "smooth",
-    });
-   }
+// scroll = () => {
+//     window.scrollTo({
+//       top: document.body.scrollHeight-800,
+//       behavior: "smooth",
+//     });
+//   }
+  
+    scroll = () => {
+    scroll.scrollToBottom();
+  };
   
  loadMore = () => { 
   articlesApi 
@@ -57,9 +66,12 @@ scroll = () => {
         articles: [...prevState.articles, ...articles], 
         page: prevState.page + 1, 
       }))
-setTimeout(() => {
-      this.scroll()
-    }, 400);
+// setTimeout(() => {
+//       this.scroll()
+//     }, 400);
+      // this.scroll()
+       this.scroll()
+       
     })
     .catch((error) => this.setState({ error })) 
     .finally(() => this.setState({ loading: false })); 
