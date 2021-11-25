@@ -4,9 +4,6 @@ import Modal from "../Modal/Modal.js";
 import Searchbar from "../Searchbar/Searchbar";
 import articlesApi from "../../services/articlesApi.js";
 import { animateScroll as scroll } from "react-scroll";
-
-
-// import axios from "axios";
 import s from "./ImageGallery.module.css";
 
 export default class ImageGallery extends Component {
@@ -19,8 +16,7 @@ export default class ImageGallery extends Component {
     isOpenModal: false,
     showLoader: false,
     src: "",
-    //  offset: 0,
-  };
+     };
 
   componentDidMount() {
     this.setState({ loading: true });
@@ -32,8 +28,7 @@ loaderToggle = (bool) => {
   };
   fetchArticles = (searchQuery, page) => {
     console.log('searchQuery :>> ', searchQuery);
-    // const {searchQuery, page} =this.state
-    articlesApi
+       articlesApi
       .fatchArticlesWithQuery(searchQuery, page)
       .then((articles) =>
         this.setState((prevState) => ({
@@ -47,13 +42,7 @@ loaderToggle = (bool) => {
       .catch((error) => this.setState({ error }))
       .finally(() => this.setState({ loading: false }));
   };
-// scroll = () => {
-//     window.scrollTo({
-//       top: document.body.scrollHeight-800,
-//       behavior: "smooth",
-//     });
-//   }
-  
+
     scroll = () => {
     scroll.scrollToBottom();
   };
@@ -66,17 +55,12 @@ loaderToggle = (bool) => {
         articles: [...prevState.articles, ...articles], 
         page: prevState.page + 1, 
       }))
-// setTimeout(() => {
-//       this.scroll()
-//     }, 400);
-      // this.scroll()
-       this.scroll()
-       
+
+      this.scroll()
     })
     .catch((error) => this.setState({ error })) 
     .finally(() => this.setState({ loading: false })); 
 };
-     
 
   openModal = (e) => {
     console.log(e.target.dataset.largeimage);
@@ -134,24 +118,3 @@ loaderToggle = (bool) => {
   }
 }
 
-// const BASE_URL = "https://pixabay.com/api";
-//     const API_KEY = "18864788-659534fccb4bfac7e1ae65a8e";
-
-//     axios.defaults.baseURL = BASE_URL;
-//     axios.defaults.params = {
-//       key: API_KEY,
-//       image_type: "photo",
-//       orientation: "horizontal",
-//       per_page: 12,
-//     };
-//     const imageGallery = async ({ q, page }) => {
-//       try {
-//         const { data } = await axios.get("", {
-//           params: { q, page },
-//         });
-//         return data.hits;
-//       } catch (error) {
-//         console.log("error", { error });
-//         return [];
-//       }
-//     };
